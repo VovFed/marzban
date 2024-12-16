@@ -179,8 +179,8 @@ Make a copy of `.env.example` file, take a look and edit it using a text editor 
 You probably like to modify the admin credentials.
 
 ```bash
-cp example.env example.env
-nano example.env
+cp .env .env
+nano .env
 ```
 
 > Check [configurations](#configuration) section for more information

@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get install -y curl unzip gcc python3-dev dos2unix \
     && rm -rf /var/lib/apt/lists/*
 
-RUN bash -c "$(curl -L https://github.com/Gozargah/Marzban-scripts/raw/master/install_latest_xray.sh)"
+RUN bash -c "$(curl -L https://raw.githubusercontent.com/VovFed/marzban/refs/heads/main/install_latest_xray.sh)"
 
 COPY ./requirements.txt /code/
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
@@ -22,8 +22,6 @@ RUN apt-get remove -y curl unzip gcc python3-dev
 RUN ln -s /code/marzban-cli.py /usr/bin/marzban-cli \
     && chmod +x /usr/bin/marzban-cli \
     && marzban-cli completion install --shell bash
-
-COPY example.env /code/
 
 CMD ["bash", "-c", "alembic upgrade head; python main.py"]
 
