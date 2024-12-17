@@ -3,9 +3,12 @@ __pycache__
 *.pyc
 *.pyo
 *.pyd
-.env
 db.sqlite3
 db.sqlite3-journal
 *.log
 v2ray-core
 xray-core
+LICENSE
+README-ru.md
+README.md
+install_latest_xray.sh
