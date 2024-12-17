@@ -17,8 +17,6 @@ COPY . /code
 RUN dos2unix /code/marzban-cli.py
 RUN dos2unix /code/main.py
 
-COPY ./.env /code/
-
 RUN apt-get remove -y curl unzip gcc python3-dev
 
 RUN ln -s /code/marzban-cli.py /usr/bin/marzban-cli \
