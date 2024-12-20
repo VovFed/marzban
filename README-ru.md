@@ -178,8 +178,8 @@ marzban-cli completion install
 Возможно, вам захочется изменить учетные данные администратора.
 
 ```bash
-cp .env .env
-nano .env
+cp .env.example .env.example
+nano .env.example
 ```
 
 > Проверьте раздел [Конфигурации](#конфигурация) для получения большей информации.

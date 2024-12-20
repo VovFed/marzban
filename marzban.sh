@@ -123,8 +123,8 @@ detect_compose() {
 }
 
 install_marzban_script() {
-    FETCH_REPO="Gozargah/Marzban-scripts"
-    SCRIPT_URL="https://github.com/$FETCH_REPO/raw/master/marzban.sh"
+    FETCH_REPO="VovFed/marzban"
+    SCRIPT_URL="https://raw.githubusercontent.com/$FETCH_REPO/refs/heads/main/marzban.sh"
     colorized_echo blue "Installing marzban script"
     curl -sSL $SCRIPT_URL | install -m 755 /dev/stdin /usr/local/bin/marzban
     colorized_echo green "marzban script installed successfully"
@@ -687,7 +687,7 @@ update_core_command() {
     xray_executable_path="XRAY_EXECUTABLE_PATH=\"/var/lib/marzban/xray-core/xray\""
 
     echo "Changing the Marzban core..."
-    # Check if the XRAY_EXECUTABLE_PATH string already exists in the .env file
+    # Check if the XRAY_EXECUTABLE_PATH string already exists in the .env.example file
     if ! grep -q "^XRAY_EXECUTABLE_PATH=" "$ENV_FILE"; then
         # If the string does not exist, add it
         echo "${xray_executable_path}" >> "$ENV_FILE"
@@ -710,7 +710,7 @@ install_marzban() {
     local marzban_version=$1
     local database_type=$2
     # Fetch releases
-    FILES_URL_PREFIX="https://raw.githubusercontent.com/Gozargah/Marzban/master"
+    FILES_URL_PREFIX="https://raw.githubusercontent.com/VovFed/marzban/refs/heads/main/"
 
     mkdir -p "$DATA_DIR"
     mkdir -p "$APP_DIR"
@@ -723,7 +723,7 @@ install_marzban() {
         cat > "$docker_file_path" <<EOF
 services:
   marzban:
-    image: gozargah/marzban:${marzban_version}
+    image: vovfed/marzban:${marzban_version}
     restart: always
     env_file: .env
     network_mode: host
@@ -775,16 +775,16 @@ EOF
         echo "----------------------------"
         colorized_echo green "File generated at $APP_DIR/docker-compose.yml"
 
-        # Modify .env file
+        # Modify .env.example file
         colorized_echo blue "Fetching .env file"
-        curl -sL "$FILES_URL_PREFIX/.env.example" -o "$APP_DIR/.env"
+          curl -sL "$FILES_URL_PREFIX/.env.example" -o "$APP_DIR/.env"
 
         # Comment out the SQLite line
         sed -i 's~^\(SQLALCHEMY_DATABASE_URL = "sqlite:////var/lib/marzban/db.sqlite3"\)~#\1~' "$APP_DIR/.env"
 
 
         # Add the MySQL connection string
-        #echo -e '\nSQLALCHEMY_DATABASE_URL = "mysql+pymysql://marzban:password@127.0.0.1:3306/marzban"' >> "$APP_DIR/.env"
+        #echo -e '\nSQLALCHEMY_DATABASE_URL = "mysql+pymysql://marzban:password@127.0.0.1:3306/marzban"' >> "$APP_DIR/.env.example"
 
         sed -i 's/^# \(XRAY_JSON = .*\)$/\1/' "$APP_DIR/.env"
         sed -i 's~\(XRAY_JSON = \).*~\1"/var/lib/marzban/xray_config.json"~' "$APP_DIR/.env"
@@ -814,7 +814,7 @@ EOF
         cat > "$docker_file_path" <<EOF
 services:
   marzban:
-    image: gozargah/marzban:${marzban_version}
+    image: vovfed/marzban:${marzban_version}
     restart: always
     env_file: .env
     network_mode: host
@@ -867,7 +867,7 @@ EOF
         echo "----------------------------"
         colorized_echo green "File generated at $APP_DIR/docker-compose.yml"
 
-        # Modify .env file
+        # Modify .env.example file
         colorized_echo blue "Fetching .env file"
         curl -sL "$FILES_URL_PREFIX/.env.example" -o "$APP_DIR/.env"
 
@@ -876,7 +876,7 @@ EOF
 
 
         # Add the MySQL connection string
-        #echo -e '\nSQLALCHEMY_DATABASE_URL = "mysql+pymysql://marzban:password@127.0.0.1:3306/marzban"' >> "$APP_DIR/.env"
+        #echo -e '\nSQLALCHEMY_DATABASE_URL = "mysql+pymysql://marzban:password@127.0.0.1:3306/marzban"' >> "$APP_DIR/.env.example"
 
         sed -i 's/^# \(XRAY_JSON = .*\)$/\1/' "$APP_DIR/.env"
         sed -i 's~\(XRAY_JSON = \).*~\1"/var/lib/marzban/xray_config.json"~' "$APP_DIR/.env"
@@ -910,9 +910,9 @@ EOF
 
         # Install requested version
         if [ "$marzban_version" == "latest" ]; then
-            yq -i '.services.marzban.image = "gozargah/marzban:latest"' "$docker_file_path"
+            yq -i '.services.marzban.image = "vovfed/marzban:latest"' "$docker_file_path"
         else
-            yq -i ".services.marzban.image = \"gozargah/marzban:${marzban_version}\"" "$docker_file_path"
+            yq -i ".services.marzban.image = \"vovfed/marzban:${marzban_version}\"" "$docker_file_path"
         fi
         echo "Installing $marzban_version version"
         colorized_echo green "File saved in $APP_DIR/docker-compose.yml"
@@ -1472,8 +1472,8 @@ update_command() {
 }
 
 update_marzban_script() {
-    FETCH_REPO="Gozargah/Marzban-scripts"
-    SCRIPT_URL="https://github.com/$FETCH_REPO/raw/master/marzban.sh"
+    FETCH_REPO="VovFed/marzban"
+    SCRIPT_URL="https://raw.githubusercontent.com/$FETCH_REPO/refs/heads/main/marzban.sh"
     colorized_echo blue "Updating marzban script"
     curl -sSL $SCRIPT_URL | install -m 755 /dev/stdin /usr/local/bin/marzban
     colorized_echo green "marzban script updated successfully"

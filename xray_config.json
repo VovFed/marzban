@@ -5,6 +5,20 @@
   "routing": {
     "rules": [
       {
+        "outboundTag": "DIRECT",
+        "domain": [
+          "full:cp.cloudflare.com",
+          "domain:msftconnecttest.com",
+          "domain:msftncsi.com",
+          "domain:connectivitycheck.gstatic.com",
+          "domain:captive.apple.com",
+          "full:detectportal.firefox.com",
+          "domain:networkcheck.kde.org",
+          "full:*.gstatic.com"
+        ],
+        "type": "field"
+      },
+      {
         "ip": [
           "geoip:private"
         ],
@@ -14,6 +28,41 @@
     ]
   },
   "inbounds": [
+    {
+      "tag": "VLESS TCP REALITY",
+      "listen": "0.0.0.0",
+      "port": 4434,
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "tcpSettings": {},
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "google.com:443",
+          "xver": 0,
+          "serverNames": [
+            "google.com"
+          ],
+          "privateKey": "0PZbJNNujLo5ilcu3Xdn7HXgPK-X-cd9l9E2EKdir4c",
+          "shortIds": [
+            "bc8fad6d9b44139c"
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
     {
       "tag": "Shadowsocks TCP",
       "listen": "0.0.0.0",
