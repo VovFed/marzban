@@ -123,9 +123,6 @@ export const Header: FC<HeaderProps> = ({ actions }) => {
       <Text as="h1" fontWeight="semibold" fontSize="2xl">
         {t("users")}
       </Text>
-      {showDonationNotif && (
-        <NotificationCircle top="0" right="0" zIndex={9999} />
-      )}
       <Box overflow="auto" css={{ direction: "rtl" }}>
         <HStack alignItems="center">
           <Menu>
@@ -177,20 +174,6 @@ export const Header: FC<HeaderProps> = ({ actions }) => {
                   </MenuItem>
                 </>
               )}
-              <Link to={DONATION_URL} target="_blank">
-                <MenuItem
-                  maxW="170px"
-                  fontSize="sm"
-                  icon={<DonationIcon />}
-                  position="relative"
-                  onClick={handleOnClose}
-                >
-                  {t("header.donation")}{" "}
-                  {showDonationNotif && (
-                    <NotificationCircle top="3" right="2" />
-                  )}
-                </MenuItem>
-              </Link>
               <Link to="/login">
                 <MenuItem maxW="170px" fontSize="sm" icon={<LogoutIcon />}>
                   {t("header.logout")}
@@ -225,28 +208,6 @@ export const Header: FC<HeaderProps> = ({ actions }) => {
           >
             {colorMode === "light" ? <DarkIcon /> : <LightIcon />}
           </IconButton>
-
-          <Box
-            css={{ direction: "ltr" }}
-            display="flex"
-            alignItems="center"
-            pr="2"
-            __css={{
-              "&  span": {
-                display: "inline-flex",
-              },
-            }}
-          >
-            <GitHubButton
-              href={REPO_URL}
-              data-color-scheme={`no-preference: ${gBtnColor}; light: ${gBtnColor}; dark: ${gBtnColor};`}
-              data-size="large"
-              data-show-count="true"
-              aria-label="Star Marzban on GitHub"
-            >
-              Star
-            </GitHubButton>
-          </Box>
         </HStack>
       </Box>
     </HStack>
