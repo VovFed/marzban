@@ -28,7 +28,7 @@
     ]
   },
   "inbounds": [
-    {
+     {
       "tag": "VLESS TCP REALITY",
       "listen": "0.0.0.0",
       "port": 4434,
@@ -72,6 +72,7 @@
         "clients": [],
         "network": "tcp,udp"
       }
+    }
   ],
   "outbounds": [
     {
